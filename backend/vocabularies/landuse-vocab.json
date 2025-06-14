@@ -1,0 +1,12 @@
+{
+  "id": "landuse-vocab",
+  "title": "Land Use Vocabulary",
+  "description": "Terms used to describe land use categories and patterns.",
+  "terms": [
+    "Urban",
+    "Agriculture",
+    "Forest",
+    "Wetland",
+    "Industrial"
+  ]
+}

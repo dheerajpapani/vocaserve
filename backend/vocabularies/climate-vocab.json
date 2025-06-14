@@ -1,0 +1,8 @@
+{
+  "title": "Climate Vocabulary",
+  "description": "Terms related to climate and environment",
+  "terms": [
+    { "term": "Greenhouse Effect", "definition": "Trapping of heat in Earth's atmosphere" },
+    { "term": "Carbon Footprint", "definition": "Amount of greenhouse gases emitted" }
+  ]
+}

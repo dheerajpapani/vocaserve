@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "@vocab": "http://www.w3.org/2004/02/skos/core#",
+    "prefLabel": "skos:prefLabel",
+    "definition": "skos:definition"
+  },
+  "@id": "http://example.org/vocab/geometry",
+  "@type": "ConceptScheme",
+  "prefLabel": "Geometry Types",
+  "hasTopConcept": [
+    {
+      "@id": "http://example.org/vocab/geometry#Point",
+      "prefLabel": "Point",
+      "definition": "A single x,y coordinate"
+    },
+    {
+      "@id": "http://example.org/vocab/geometry#LineString",
+      "prefLabel": "LineString",
+      "definition": "A sequence of connected points"
+    },
+    {
+      "@id": "http://example.org/vocab/geometry#Polygon",
+      "prefLabel": "Polygon",
+      "definition": "An area defined by a closed ring of points"
+    },
+    {
+      "@id": "http://example.org/vocab/geometry#MultiPolygon",
+      "prefLabel": "MultiPolygon",
+      "definition": "Multiple Polygons"
+    }
+  ]
+}

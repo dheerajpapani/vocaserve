@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "@vocab": "http://www.w3.org/2004/02/skos/core#",
+    "prefLabel": "skos:prefLabel",
+    "definition": "skos:definition",
+    "related": { "@id": "skos:related", "@type": "@id" }
+  },
+  "@id": "http://example.org/vocab/climate",
+  "@type": "ConceptScheme",
+  "prefLabel": "Climate Vocabulary",
+  "hasTopConcept": [
+    {
+      "@id": "http://example.org/vocab/climate#Climate",
+      "prefLabel": "Climate",
+      "narrower": [
+        {
+          "@id": "http://example.org/vocab/climate#GreenhouseEffect",
+          "prefLabel": "Greenhouse Effect",
+          "definition": "Warming of Earth's surface due to greenhouse gases"
+        },
+        {
+          "@id": "http://example.org/vocab/climate#CarbonFootprint",
+          "prefLabel": "Carbon Footprint",
+          "definition": "Total greenhouse gas emissions by a person or group",
+          "related": [
+            "http://example.org/vocab/climate#GreenhouseEffect"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "@context": {
+    "@vocab": "http://www.w3.org/2004/02/skos/core#",
+    "prefLabel": "skos:prefLabel",
+    "related": { "@id": "skos:related", "@type": "@id" }
+  },
+  "@id": "http://example.org/vocab/landuse",
+  "@type": "ConceptScheme",
+  "prefLabel": "Land Use Vocabulary",
+  "hasTopConcept": [
+    {
+      "@id": "http://example.org/vocab/landuse#LandUse",
+      "prefLabel": "Land Use",
+      "narrower": [
+        {
+          "@id": "http://example.org/vocab/landuse#Forest",
+          "prefLabel": "Forest",
+          "related": [
+            "http://example.org/vocab/landuse#Wetland"
+          ]
+        },
+        {
+          "@id": "http://example.org/vocab/landuse#Wetland",
+          "prefLabel": "Wetland"
+        },
+        {
+          "@id": "http://example.org/vocab/landuse#Urban",
+          "prefLabel": "Urban"
+        }
+      ]
+    }
+  ]
+}

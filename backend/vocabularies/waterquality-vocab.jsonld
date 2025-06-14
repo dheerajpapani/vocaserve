@@ -1,0 +1,29 @@
+{
+  "@context": {
+    "@vocab": "http://www.w3.org/2004/02/skos/core#",
+    "prefLabel": "skos:prefLabel",
+    "broader": { "@id": "skos:broader", "@type": "@id" },
+    "definition": "skos:definition"
+  },
+  "@id": "http://example.org/vocab/waterquality",
+  "@type": "ConceptScheme",
+  "prefLabel": "Water Quality Vocabulary",
+  "hasTopConcept": [
+    {
+      "@id": "http://example.org/vocab/waterquality#WaterQuality",
+      "prefLabel": "Water Quality",
+      "narrower": [
+        {
+          "@id": "http://example.org/vocab/waterquality#pH",
+          "prefLabel": "pH",
+          "definition": "Measure of acidity or alkalinity"
+        },
+        {
+          "@id": "http://example.org/vocab/waterquality#DissolvedOxygen",
+          "prefLabel": "Dissolved Oxygen",
+          "definition": "Amount of oxygen dissolved in water"
+        }
+      ]
+    }
+  ]
+}

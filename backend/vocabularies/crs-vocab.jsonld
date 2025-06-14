@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "@vocab": "http://www.w3.org/2004/02/skos/core#",
+    "prefLabel": "skos:prefLabel",
+    "definition": "skos:definition",
+    "related": { "@id": "skos:related", "@type": "@id" }
+  },
+  "@id": "http://example.org/vocab/crs",
+  "@type": "ConceptScheme",
+  "prefLabel": "Coordinate Reference Systems",
+  "hasTopConcept": [
+    {
+      "@id": "http://example.org/vocab/crs#CRS",
+      "prefLabel": "CRS",
+      "narrower": [
+        {
+          "@id": "http://example.org/vocab/crs#EPSG4326",
+          "prefLabel": "WGS 84 (EPSG:4326)",
+          "definition": "Global CRS based on latitude and longitude",
+          "related": [
+            "http://example.org/vocab/crs#EPSG3857"
+          ]
+        },
+        {
+          "@id": "http://example.org/vocab/crs#EPSG3857",
+          "prefLabel": "Web Mercator (EPSG:3857)",
+          "definition": "Projected CRS commonly used for web maps"
+        }
+      ]
+    }
+  ]
+}

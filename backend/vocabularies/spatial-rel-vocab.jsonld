@@ -1,0 +1,39 @@
+{
+  "@context": {
+    "@vocab": "http://www.w3.org/2004/02/skos/core#",
+    "prefLabel": "skos:prefLabel",
+    "definition": "skos:definition",
+    "related": { "@id": "skos:related", "@type": "@id" }
+  },
+  "@id": "http://example.org/vocab/spatialrel",
+  "@type": "ConceptScheme",
+  "prefLabel": "Spatial Relationship Vocabulary",
+  "hasTopConcept": [
+    {
+      "@id": "http://example.org/vocab/spatialrel#SpatialRelationship",
+      "prefLabel": "Spatial Relationship",
+      "narrower": [
+        {
+          "@id": "http://example.org/vocab/spatialrel#Intersect",
+          "prefLabel": "Intersect",
+          "definition": "Geometries that share any portion of space"
+        },
+        {
+          "@id": "http://example.org/vocab/spatialrel#Contain",
+          "prefLabel": "Contain",
+          "definition": "One geometry completely contains another"
+        },
+        {
+          "@id": "http://example.org/vocab/spatialrel#Within",
+          "prefLabel": "Within",
+          "definition": "One geometry is completely inside another"
+        },
+        {
+          "@id": "http://example.org/vocab/spatialrel#Disjoint",
+          "prefLabel": "Disjoint",
+          "definition": "Geometries share no space in common"
+        }
+      ]
+    }
+  ]
+}
