@@ -26,6 +26,10 @@ if (fs.existsSync(frontendPath)) {
   });
 }
 
+app.get('/', (req, res) => {
+  res.send('✅ VocaServe API is live!');
+});
+
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });
