@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { saveAs } from 'file-saver';
 import { useAuth } from '../context/AuthContext';
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3000';
+const API_BASE = import.meta.env.VITE_API_BASE || 'https://vocaserve-backend.onrender.com';
 
 export default function VocabularyDetailWrapper() {
   const { id } = useParams();
@@ -144,5 +144,4 @@ function VocabularyDetail({ id }) {
     </div>
   );
 }
-
 export { VocabularyDetailWrapper };

@@ -10,7 +10,7 @@ export default function Navbar() {
         </Link>
         <div className="flex gap-6 items-center">
           <a
-            href="https://github.com/your-username/vocabulary-manager"
+            href="https://github.com/dheerajpapani/vocaserve"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-gray-200"
