@@ -27,7 +27,7 @@ if (fs.existsSync(frontendPath)) {
 }
 
 app.get('/', (req, res) => {
-  res.send('✅ VocaServe API is live!. Use /vocabularies to access vocab data.');
+  res.send('✅ VocaServe API is live!. Use  /vocabularies to access vocab data.');
 });
 
 app.listen(PORT, () => {
