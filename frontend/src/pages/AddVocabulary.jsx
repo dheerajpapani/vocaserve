@@ -7,6 +7,7 @@ export default function AddVocabulary() {
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
   const [formKey, setFormKey] = useState(Date.now());
+  const navigate = useNavigate();
 
   const handleAdd = async ({ title, description, terms }) => {
     setError('');
@@ -22,8 +23,8 @@ export default function AddVocabulary() {
           terms: terms
             .split(',')
             .map(t => t.trim())
-            .filter(Boolean)
-        })
+            .filter(Boolean),
+        }),
       });
 
       if (!res.ok) throw new Error('Failed to add vocabulary');
@@ -35,20 +36,36 @@ export default function AddVocabulary() {
     }
   };
 
-  const navigate = useNavigate();
-
   return (
     <PageWrapper>
-      <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
-        <h1 className="text-2xl font-bold mb-4">Add Vocabulary</h1>
+      <div className="form-container">
+        <h1 className="vocab-detail-title">Add Vocabulary</h1>
         <AddEditForm
           key={formKey}
           onSubmit={handleAdd}
           submitText="Add Vocabulary"
         />
-        <button onClick={() => navigate(`/vocabularies`)}>⬅ Back</button>
-        {error && <p className="text-red-600 mt-2">{error}</p>}
-        {success && <p className="text-green-600 mt-2">{success}</p>}
+        {/* Back button */}
+        <div className="form-buttons">
+          <button
+            type="button"
+            className="btn-cancel"
+            onClick={() => navigate('/vocabularies')}
+          >
+            ⬅ Back
+          </button>
+        </div>
+        {/* Messages */}
+        {error && (
+          <p className="text-center mt-2" style={{ color: 'var(--color-danger)' }}>
+            {error}
+          </p>
+        )}
+        {success && (
+          <p className="text-center mt-2" style={{ color: 'var(--color-secondary)' }}>
+            {success}
+          </p>
+        )}
       </div>
     </PageWrapper>
   );

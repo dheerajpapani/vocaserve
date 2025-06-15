@@ -1,9 +1,11 @@
+// src/components/VocabularyDetail.jsx (or wherever located)
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { saveAs } from 'file-saver';
 import { useAuth } from '../context/AuthContext';
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'https://vocaserve-backend.onrender.com';
+const API_BASE =
+  import.meta.env.VITE_API_BASE || 'https://vocaserve-backend.onrender.com';
 
 export default function VocabularyDetailWrapper() {
   const { id } = useParams();
@@ -37,7 +39,7 @@ function VocabularyDetail({ id }) {
     if (!confirm('Are you sure you want to delete this vocabulary?')) return;
     try {
       const res = await fetch(`${API_BASE}/vocabularies/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
       });
       if (!res.ok) throw new Error('Delete failed');
       navigate('/vocabularies');
@@ -57,10 +59,11 @@ function VocabularyDetail({ id }) {
 
   const handleDownloadCSV = () => {
     if (!vocab) return;
-    const hasObjectTerms = Array.isArray(vocab.terms) && typeof vocab.terms[0] === 'object';
+    const hasObjectTerms =
+      Array.isArray(vocab.terms) && typeof vocab.terms[0] === 'object';
     const csvHeader = hasObjectTerms ? 'Term,Definition\n' : 'Term\n';
     const csvRows = (vocab.terms || [])
-      .map(term => {
+      .map((term) => {
         if (typeof term === 'object') {
           const t = (term.term || '').replace(/"/g, '""');
           const d = (term.definition || '').replace(/"/g, '""');
@@ -75,18 +78,24 @@ function VocabularyDetail({ id }) {
     saveAs(blob, `${vocab.id || id}.csv`);
   };
 
-  if (error) return <p className="text-red-600 text-center mt-6">{error}</p>;
-  if (!vocab) return <p className="text-center mt-6">Loading...</p>;
+  if (error)
+    return (
+      <p className="text-center mt-6" style={{ color: 'var(--color-danger)' }}>
+        {error}
+      </p>
+    );
+  if (!vocab)
+    return <p className="text-center mt-6">Loading...</p>;
 
   return (
-    <div className="max-w-2xl mx-auto mt-8 p-6 bg-white shadow rounded">
-      <h2 className="text-2xl font-bold mb-2">{vocab.title}</h2>
-      <p className="text-gray-700 mb-4">{vocab.description}</p>
+    <div className="vocab-detail-container">
+      <h2 className="vocab-detail-title">{vocab.title}</h2>
+      <p className="vocab-detail-description">{vocab.description}</p>
 
       {Array.isArray(vocab.terms) && vocab.terms.length > 0 && (
-        <div className="mb-4">
-          <h3 className="text-lg font-semibold">Terms:</h3>
-          <ul className="list-disc pl-6">
+        <div className="vocab-detail-terms">
+          <h3>Terms:</h3>
+          <ul>
             {vocab.terms.map((term, index) => (
               <li key={index}>
                 {typeof term === 'object' ? (
@@ -103,10 +112,10 @@ function VocabularyDetail({ id }) {
         </div>
       )}
 
-      <div className="flex flex-wrap gap-4 mt-4">
+      <div className="vocab-detail-buttons">
         <button
           onClick={() => navigate('/vocabularies')}
-          className="px-3 py-1 border rounded hover:bg-gray-100"
+          className="btn-back"
         >
           ⬅ Back
         </button>
@@ -115,33 +124,25 @@ function VocabularyDetail({ id }) {
           <>
             <button
               onClick={() => navigate(`/edit/${vocab.id || id}`)}
-              className="bg-yellow-500 px-4 py-2 text-white rounded hover:bg-yellow-600"
+              className="btn-edit"
             >
               ✏️ Edit
             </button>
-            <button
-              onClick={handleDelete}
-              className="bg-red-600 px-4 py-2 text-white rounded hover:bg-red-700"
-            >
+            <button onClick={handleDelete} className="btn-delete">
               🗑️ Delete
             </button>
           </>
         )}
 
-        <button
-          onClick={handleDownloadJSON}
-          className="bg-blue-600 px-4 py-2 text-white rounded hover:bg-blue-700"
-        >
+        <button onClick={handleDownloadJSON} className="btn-download">
           ⬇ Download JSON
         </button>
-        <button
-          onClick={handleDownloadCSV}
-          className="bg-green-600 px-4 py-2 text-white rounded hover:bg-green-700"
-        >
+        <button onClick={handleDownloadCSV} className="btn-download">
           ⬇ Download CSV
         </button>
       </div>
     </div>
   );
 }
+
 export { VocabularyDetailWrapper };

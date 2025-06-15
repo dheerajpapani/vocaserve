@@ -1,3 +1,4 @@
+// src/pages/Home.jsx
 import { useEffect, useState, useRef } from 'react';
 import { getVocabularies } from '../api';
 import { Link } from 'react-router-dom';
@@ -58,9 +59,12 @@ export default function Home() {
   }, [filtered, visibleCount]);
 
   const handleExportJSON = () => {
-    const blob = new Blob([JSON.stringify(filtered.slice(0, visibleCount), null, 2)], {
-      type: 'application/json',
-    });
+    const blob = new Blob(
+      [JSON.stringify(filtered.slice(0, visibleCount), null, 2)],
+      {
+        type: 'application/json',
+      }
+    );
     saveAs(blob, 'vocabularies.json');
   };
 
@@ -75,13 +79,17 @@ export default function Home() {
     saveAs(blob, 'vocabularies.csv');
   };
 
-  if (loading) return <p className="loading-message">Loading vocabularies...</p>;
+  if (loading)
+    return (
+      <p className="text-center mt-6">Loading vocabularies...</p>
+    );
 
   return (
+    // PageWrapper handles animations, but Layout ensures .page-content applies offset
     <PageWrapper>
       <div className="home-container">
         <div className="home-header">
-          <h1 className="vocab-title">📘 Vocabulary List</h1>
+          <h1 className="vocab-title">📚 Vocabulary List</h1>
           {isAdmin && (
             <Link to="/add" className="add-btn">
               ➕ Add New Vocabulary
@@ -98,15 +106,22 @@ export default function Home() {
         />
 
         <div className="export-buttons">
-          <button onClick={handleExportJSON}>⬇ Export JSON</button>
-          <button onClick={handleExportCSV}>⬇ Export CSV</button>
+          <button onClick={handleExportJSON} className="json-btn">
+            ⬇ Export JSON
+          </button>
+          <button onClick={handleExportCSV} className="csv-btn">
+            ⬇ Export CSV
+          </button>
         </div>
 
         {filtered.length === 0 ? (
           <p className="no-vocab">No matching vocabularies found.</p>
         ) : (
           <>
-            <VocabularyList vocabularies={filtered.slice(0, visibleCount)} highlightTerm={search} />
+            <VocabularyList
+              vocabularies={filtered.slice(0, visibleCount)}
+              highlightTerm={search}
+            />
             <div ref={loadMoreRef} className="load-more-trigger" />
           </>
         )}

@@ -4,7 +4,9 @@ import { VocabularyDetailWrapper as VocabularyDetail } from '../components/Vocab
 export default function ViewVocabulary() {
   return (
     <PageWrapper>
-      <VocabularyDetail />
+      <div className="vocab-detail-container">
+        <VocabularyDetail />
+      </div>
     </PageWrapper>
   );
 }

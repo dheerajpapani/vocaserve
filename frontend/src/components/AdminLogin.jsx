@@ -17,11 +17,11 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="navbar-login-wrapper">
       {isAdmin ? (
         <>
-          <span className="text-sm">👑 Admin</span>
-          <button onClick={logout} className="text-white bg-red-500 px-3 py-1 rounded hover:bg-red-600">
+          <span className="admin-label">👑 Admin</span>
+          <button onClick={logout}>
             Logout
           </button>
         </>
@@ -32,9 +32,8 @@ export default function AdminLogin() {
             placeholder="Admin password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="px-2 py-1 rounded border"
           />
-          <button onClick={handleLogin} className="text-white bg-blue-500 px-3 py-1 rounded hover:bg-blue-600">
+          <button onClick={handleLogin}>
             Login
           </button>
           {error && <span className="text-red-300 text-sm">{error}</span>}

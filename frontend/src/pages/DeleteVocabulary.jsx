@@ -30,24 +30,33 @@ export default function DeleteVocabulary() {
   };
 
   if (!isAdmin) return null;
-  if (error) return <p className="text-red-600 text-center mt-10">{error}</p>;
-  if (!vocab) return <p className="text-center mt-10">Loading...</p>;
+
+  if (error)
+    return (
+      <p className="text-center mt-6" style={{ color: 'var(--color-danger)' }}>
+        {error}
+      </p>
+    );
+
+  if (!vocab)
+    return (
+      <p className="text-center mt-6">Loading...</p>
+    );
 
   return (
     <PageWrapper>
-      <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
-        <h2 className="text-xl font-bold mb-4">Delete Vocabulary</h2>
-        <p>Are you sure you want to delete <strong>{vocab.title}</strong>?</p>
-        <div className="mt-6 flex gap-4">
-          <button
-            onClick={handleConfirm}
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-          >
+      <div className="delete-container">
+        <h2 className="vocab-detail-title">Delete Vocabulary</h2>
+        <p>
+          Are you sure you want to delete <strong>{vocab.title}</strong>?
+        </p>
+        <div className="delete-buttons">
+          <button onClick={handleConfirm} className="btn-confirm">
             🗑️ Yes, Delete
           </button>
           <button
             onClick={() => navigate(`/vocabularies/${id}`)}
-            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+            className="btn-cancel"
           >
             Cancel
           </button>

@@ -1,112 +1,332 @@
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
+/* ===== App.css ===== */
+
+/* 0. Reset defaults and define theme & navbar variables ===== */
+:root {
+  /* Navbar floating & spacing variables */
+  --navbar-horizontal-margin: 1rem;  /* space from viewport edges */
+  --navbar-vertical-padding: 1.25rem; /* vertical padding inside navbar */
+  --navbar-gap-below: 1rem;          /* small gap between navbar bottom and content */
+  --navbar-radius: 12px;             /* curved corners */
+
+  /* Theme variables */
+  --color-primary: #3b82f6;
+  --color-primary-dark: #2563eb;
+  --color-secondary: #22c55e;
+  --color-secondary-dark: #16a34a;
+  --color-danger: #ef4444;
+  --color-danger-dark: #dc2626;
+  --color-bg: #f9fafb;
+  --color-card-bg: #ffffff;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-border: #e5e7eb;
+  --radius: 8px;
+  --spacing: 1rem;
+  --max-width: 1200px;
+  --transition: 0.2s ease-in-out;
+  --font-family: 'Segoe UI', Roboto, sans-serif;
 }
 
-.card {
-  background: white;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
-.button {
-  background: #333;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.p-1 { padding: 0.25rem; }
+.p-2 { padding: 0.5rem; }
+.p-3 { padding: 0.75rem; }
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.rounded { border-radius: var(--radius); }
+.shadow-sm { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.shadow-md { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+
+/* ===== Navbar: floating fixed with curved edges (centered via left/right offsets) ===== */
+.navbar {
+  position: fixed;
+  top: var(--navbar-horizontal-margin);
+  left: var(--navbar-horizontal-margin);
+  right: var(--navbar-horizontal-margin);
+  /* Center via equal left/right margins; no transform needed */
+  max-width: var(--max-width);
+  margin: 0 auto; /* centers when viewport wider than max-width + margins */
+  /* dynamic height: remove fixed height, use vertical padding only */
+  padding: var(--navbar-vertical-padding) 1rem;
+  /* semi-transparent background + optional blur for frosted look */
+  background: rgba(59, 130, 246, 0.9); /* blue-500 semi */
+  backdrop-filter: blur(10px); /* optional; remove if not desired */
   color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--navbar-radius);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  background-size: 200% 200%;
+  transition: background-color var(--transition), transform var(--transition);
+  overflow: hidden;
 }
 
-/* ===== Home Page Styling ===== */
-.home-container {
-  max-width: 768px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 12px;
+.navbar:hover {
+  background: rgba(37, 99, 235, 0.9); /* slightly darker on hover */
+}
+
+/* Flex container inside navbar */
+.navbar-inner {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Brand (left) */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: white;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.logo-icon {
+  margin-right: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.navbar-brand:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* Links / AdminLogin (right) */
+.navbar-links {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* Link styles */
+.navbar-link {
+  color: white;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.navbar-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* AdminLogin input/button */
+.navbar-links input[type="password"],
+.navbar-links input[type="text"] {
+  padding: 0.35rem 0.5rem;
+  border-radius: var(--radius);
+  border: none;
+  font-size: 0.9rem;
+  outline: none;
+  width: 140px;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.navbar-links input[type="password"]:focus,
+.navbar-links input[type="text"]:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+.navbar-links button {
+  background-color: rgba(239, 68, 68, 0.9); /* red-500 semi */
+  border: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius);
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.navbar-links button:hover {
+  background-color: rgba(220, 38, 38, 0.9); /* red-600 semi */
+  transform: translateY(-1px);
+}
+
+/* Responsive: wrap on small screens */
+@media (max-width: 640px) {
+  .navbar {
+    top: calc(var(--navbar-horizontal-margin) / 2);
+    left: calc(var(--navbar-horizontal-margin) / 2);
+    right: calc(var(--navbar-horizontal-margin) / 2);
+    width: calc(100% - var(--navbar-horizontal-margin));
+  }
+  .navbar-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .navbar-links {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .navbar-links input[type="password"],
+  .navbar-links input[type="text"],
+  .navbar-links button,
+  .navbar-link {
+    width: 100%;
+    text-align: center;
+    margin: 0.25rem 0;
+  }
+}
+
+/* ===== Page Content Offset ===== */
+/* Push content below the navbar plus a small gap */
+.page-content {
+  padding-top: var(--dynamic-navbar-height, 5rem); /* fallback if JS fails */
+  transition: padding-top 0.2s ease-in-out;
+}
+
+/* ===== Page Wrapper / Container ===== */
+/* Centered containers for forms, detail, delete */
+.form-container,
+.vocab-detail-container,
+.delete-container {
+  width: 90%;
+  max-width: var(--max-width);
+  margin: 0 auto 2rem auto; /* top margin handled by page-content */
+  padding: 1.5rem;
+  background-color: var(--color-card-bg);
+  border-radius: var(--radius);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== Home Page Specific Styling ===== */
+/* Full-width home container so list is near edges */
+.home-container {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto 2rem auto;
+  padding: 0 1rem 2rem 1rem; /* small horizontal padding */
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
 }
 
 .home-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .vocab-title {
   font-size: 1.75rem;
-  font-weight: bold;
-  color: #1f2937;
+  font-weight: 700;
+  color: var(--color-text-primary);
 }
 
 .add-btn {
-  background-color: #22c55e;
+  background-color: var(--color-secondary);
   color: white;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
   text-decoration: none;
   font-weight: 500;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color var(--transition);
 }
 
 .add-btn:hover {
-  background-color: #16a34a;
+  background-color: var(--color-secondary-dark);
 }
 
 .search-input {
   width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1.25rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
   font-size: 1rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.search-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
 
 .export-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .export-buttons button {
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 0.75rem;
   font-weight: 500;
-  border-radius: 8px;
+  border-radius: var(--radius);
   border: none;
   color: white;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color var(--transition), transform var(--transition);
 }
 
-.export-buttons button:first-child {
-  background-color: #2563eb;
+.export-buttons button:hover {
+  transform: translateY(-1px);
 }
 
-.export-buttons button:first-child:hover {
-  background-color: #1e40af;
+.export-buttons .json-btn {
+  background-color: var(--color-primary);
 }
 
-.export-buttons button:last-child {
-  background-color: #eab308;
+.export-buttons .json-btn:hover {
+  background-color: var(--color-primary-dark);
 }
 
-.export-buttons button:last-child:hover {
-  background-color: #ca8a04;
+.export-buttons .csv-btn {
+  background-color: #f59e0b;
+}
+
+.export-buttons .csv-btn:hover {
+  background-color: #d97706;
 }
 
 .no-vocab {
   text-align: center;
-  color: #6b7280;
+  color: var(--color-text-secondary);
   margin-top: 3rem;
   font-size: 1rem;
-}
-
-.load-more-trigger {
-  height: 2px;
 }
 
 .loading-message {
@@ -114,4 +334,229 @@
   font-size: 1.125rem;
   margin-top: 3rem;
 }
+
+/* ===== Vocabulary List Grid & Cards ===== */
+.vocab-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.vocab-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.vocab-card {
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.vocab-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.vocab-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.vocab-card-desc {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  flex-grow: 1;
+}
+
+/* ===== Vocabulary Detail Page Styling ===== */
+.vocab-detail-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.vocab-detail-description {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.vocab-detail-terms {
+  margin-bottom: 1.5rem;
+}
+
+.vocab-detail-terms h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.vocab-detail-terms ul {
+  list-style: disc inside;
+  color: var(--color-text-primary);
+}
+
+.vocab-detail-terms li {
+  margin-bottom: 0.5rem;
+}
+
+.vocab-detail-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.vocab-detail-buttons .btn-back {
+  background-color: var(--color-border);
+  color: var(--color-text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.vocab-detail-buttons .btn-back:hover {
+  background-color: #e5e7eb;
+}
+
+.vocab-detail-buttons .btn-edit {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.vocab-detail-buttons .btn-edit:hover {
+  background-color: #d97706;
+}
+
+.vocab-detail-buttons .btn-delete {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.vocab-detail-buttons .btn-delete:hover {
+  background-color: var(--color-danger-dark);
+}
+
+.vocab-detail-buttons .btn-download {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.vocab-detail-buttons .btn-download:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* ===== Forms: Add/Edit Vocabulary ===== */
+.form-field {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.form-buttons .btn-submit {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.form-buttons .btn-submit:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+.form-buttons .btn-cancel {
+  background-color: var(--color-border);
+  color: var(--color-text-primary);
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.form-buttons .btn-cancel:hover {
+  background-color: #e5e7eb;
+}
+
+/* ===== Delete Confirmation Page ===== */
+.delete-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.delete-buttons .btn-confirm {
+  background-color: var(--color-danger);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.delete-buttons .btn-confirm:hover {
+  background-color: var(--color-danger-dark);
+}
+
+.delete-buttons .btn-cancel {
+  background-color: var(--color-border);
+  color: var(--color-text-primary);
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.delete-buttons .btn-cancel:hover {
+  background-color: #e5e7eb;
+}
+
+
 

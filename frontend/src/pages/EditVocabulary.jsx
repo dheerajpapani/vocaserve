@@ -1,3 +1,4 @@
+// src/pages/EditVocabulary.jsx
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -15,7 +16,7 @@ export default function EditVocabulary() {
   const [terms, setTerms] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [initialData, setInitialData] = useState('');
+  const [initialData, setInitialData] = useState({});
 
   const isDirty = () =>
     title !== initialData.title ||
@@ -49,9 +50,12 @@ export default function EditVocabulary() {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          title,
-          description,
-          terms: terms.split(',').map((t) => t.trim()).filter(Boolean),
+          title: title.trim(),
+          description: description.trim(),
+          terms: terms
+            .split(',')
+            .map((t) => t.trim())
+            .filter(Boolean),
         }),
       });
 
@@ -67,61 +71,74 @@ export default function EditVocabulary() {
 
   const handleBack = () => {
     if (isDirty()) {
-      const confirmLeave = confirm('You have unsaved changes. Are you sure you want to go back?');
+      const confirmLeave = confirm(
+        'You have unsaved changes. Are you sure you want to go back?'
+      );
       if (!confirmLeave) return;
     }
     navigate(`/vocabularies/${id}`);
   };
 
-  if (loading) return <p className="text-center mt-10">Loading...</p>;
-  if (error) return <p className="text-red-600 text-center mt-10">{error}</p>;
+  if (loading)
+    return (
+      <p className="text-center mt-6">Loading...</p>
+    );
+  if (error)
+    return (
+      <p className="text-center mt-6" style={{ color: 'var(--color-danger)' }}>
+        {error}
+      </p>
+    );
 
   return (
     <PageWrapper>
-      <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow rounded">
-        <h2 className="text-2xl font-bold mb-4">Edit Vocabulary</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1 font-semibold">Title</label>
+      <div className="form-container">
+        <h2 className="vocab-detail-title">Edit Vocabulary</h2>
+        <form onSubmit={handleSubmit}>
+          {/* Title Field */}
+          <div className="form-field">
+            <label htmlFor="title">Title</label>
             <input
+              id="title"
               type="text"
-              className="w-full border px-3 py-2 rounded"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
             />
           </div>
-          <div>
-            <label className="block mb-1 font-semibold">Description</label>
+
+          {/* Description Field */}
+          <div className="form-field">
+            <label htmlFor="description">Description</label>
             <textarea
-              className="w-full border px-3 py-2 rounded"
+              id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
-            ></textarea>
+            />
           </div>
-          <div>
-            <label className="block mb-1 font-semibold">Terms (comma separated)</label>
+
+          {/* Terms Field */}
+          <div className="form-field">
+            <label htmlFor="terms">Terms (comma separated)</label>
             <input
+              id="terms"
               type="text"
-              className="w-full border px-3 py-2 rounded"
               value={terms}
               onChange={(e) => setTerms(e.target.value)}
             />
           </div>
 
-          <div className="flex justify-between">
+          {/* Buttons */}
+          <div className="form-buttons">
             <button
               type="button"
               onClick={handleBack}
-              className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+              className="btn-cancel"
             >
               ← Back
             </button>
-            <button
-              type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            >
+            <button type="submit" className="btn-submit">
               💾 Save Changes
             </button>
           </div>

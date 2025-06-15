@@ -1,19 +1,30 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import AdminLogin from './AdminLogin';
 
 export default function Navbar() {
+  const location = useLocation();
+
+  // Determine if the current route is under "/vocabularies"
+  const isActiveHome = location.pathname.startsWith('/vocabularies');
+
   return (
-    <nav className="bg-blue-600 text-white px-6 py-3 shadow">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
-        <Link to="/vocabularies" className="text-lg font-bold hover:text-gray-100">
-          📘 Vocabulary Manager
+    <nav className="navbar" role="navigation" aria-label="Main navigation">
+      <div className="navbar-inner">
+        {/* Brand / Home link */}
+        <Link
+          to="/vocabularies"
+          className={`navbar-brand${isActiveHome ? ' active' : ''}`}
+        >
+          <span className="logo-icon" aria-hidden="true">📘</span>
+          <span className="brand-text">Vocabulary Manager</span>
         </Link>
-        <div className="flex gap-6 items-center">
+
+        <div className="navbar-links">
           <a
             href="https://github.com/dheerajpapani/vocaserve"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-gray-200"
+            className="navbar-link"
           >
             🔗 GitHub
           </a>

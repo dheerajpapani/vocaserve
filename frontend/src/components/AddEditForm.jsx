@@ -1,3 +1,4 @@
+// src/components/AddEditForm.jsx
 import { useState, useEffect } from 'react';
 
 export default function AddEditForm({ initialValues = {}, onSubmit, submitText }) {
@@ -26,48 +27,59 @@ export default function AddEditForm({ initialValues = {}, onSubmit, submitText }
     await onSubmit({
       title: title.trim(),
       description: description.trim(),
-      terms: terms
+      terms,
     });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block mb-1 font-semibold">Title</label>
+    <form onSubmit={handleSubmit}>
+      {/* Title */}
+      <div className="form-field">
+        <label htmlFor="form-title">Title</label>
         <input
+          id="form-title"
           type="text"
-          className="w-full border px-3 py-2 rounded"
           placeholder="Enter title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
-      <div>
-        <label className="block mb-1 font-semibold">Description</label>
+
+      {/* Description */}
+      <div className="form-field">
+        <label htmlFor="form-description">Description</label>
         <textarea
-          className="w-full border px-3 py-2 rounded"
+          id="form-description"
           placeholder="Enter description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
-      <div>
-        <label className="block mb-1 font-semibold">Terms (comma separated)</label>
+
+      {/* Terms */}
+      <div className="form-field">
+        <label htmlFor="form-terms">Terms (comma separated)</label>
         <input
+          id="form-terms"
           type="text"
-          className="w-full border px-3 py-2 rounded"
           placeholder="e.g. term1, term2, term3"
           value={terms}
           onChange={(e) => setTerms(e.target.value)}
         />
       </div>
-      <button
-        type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full sm:w-auto"
-      >
-        {submitText}
-      </button>
-      {error && <p className="text-red-600">{error}</p>}
+
+      {/* Submit */}
+      <div className="form-buttons">
+        <button type="submit" className="btn-submit">
+          {submitText}
+        </button>
+      </div>
+
+      {error && (
+        <p className="text-center mt-2" style={{ color: 'var(--color-danger)' }}>
+          {error}
+        </p>
+      )}
     </form>
   );
 }

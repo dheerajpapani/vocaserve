@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -11,35 +12,44 @@ import { ToastContainer } from 'react-toastify';
 import { useAuth } from './context/AuthContext';
 import './App.css';
 
-
 function App() {
   const { isAdmin } = useAuth();
 
-  return (
-    <div>
-      <Navbar />
-      <div className="p-4">
-        <Routes>
-          {/* Redirect root to /vocabularies */}
-          <Route path="/" element={<Navigate to="/vocabularies" replace />} />
+  useEffect(() => {
+    function adjustPadding() {
+      const navbar = document.getElementById('navbar');
+      if (navbar) {
+        const height = navbar.offsetHeight + 16; // 16px gap below
+        document.documentElement.style.setProperty('--dynamic-navbar-height', `${height}px`);
+      }
+    }
 
-          {/* Main routes */}
+    adjustPadding();
+    window.addEventListener('resize', adjustPadding);
+    return () => window.removeEventListener('resize', adjustPadding);
+  }, []);
+
+  return (
+    <>
+      {/* Fixed navbar with ID for measurement */}
+      <Navbar />
+
+      {/* Main content area, offset below navbar via CSS */}
+      <main className="page-content">
+        <Routes>
+          <Route path="/" element={<Navigate to="/vocabularies" replace />} />
           <Route path="/vocabularies" element={<Home />} />
           <Route path="/vocabularies/:id" element={<ViewVocabulary />} />
-
-          {/* Admin routes */}
           <Route path="/add" element={isAdmin ? <AddVocabulary /> : <NotFound />} />
           <Route path="/edit/:id" element={isAdmin ? <EditVocabulary /> : <NotFound />} />
           <Route path="/delete/:id" element={isAdmin ? <DeleteVocabulary /> : <NotFound />} />
-
-          {/* Error routes */}
           <Route path="/error" element={<Error500 />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 
         <ToastContainer position="top-right" autoClose={3000} />
-      </div>
-    </div>
+      </main>
+    </>
   );
 }
 
