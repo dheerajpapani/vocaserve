@@ -9,6 +9,8 @@ import NotFound from './pages/NotFound';
 import Error500 from './pages/Error500';
 import { ToastContainer } from 'react-toastify';
 import { useAuth } from './context/AuthContext';
+import './App.css';
+
 
 function App() {
   const { isAdmin } = useAuth();
