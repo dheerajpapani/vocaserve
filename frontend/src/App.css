@@ -19,3 +19,99 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+/* ===== Home Page Styling ===== */
+.home-container {
+  max-width: 768px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.vocab-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.add-btn {
+  background-color: #22c55e;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.add-btn:hover {
+  background-color: #16a34a;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.export-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.export-buttons button {
+  padding: 0.6rem 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.export-buttons button:first-child {
+  background-color: #2563eb;
+}
+
+.export-buttons button:first-child:hover {
+  background-color: #1e40af;
+}
+
+.export-buttons button:last-child {
+  background-color: #eab308;
+}
+
+.export-buttons button:last-child:hover {
+  background-color: #ca8a04;
+}
+
+.no-vocab {
+  text-align: center;
+  color: #6b7280;
+  margin-top: 3rem;
+  font-size: 1rem;
+}
+
+.load-more-trigger {
+  height: 2px;
+}
+
+.loading-message {
+  text-align: center;
+  font-size: 1.125rem;
+  margin-top: 3rem;
+}
+

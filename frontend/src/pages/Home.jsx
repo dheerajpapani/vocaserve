@@ -36,8 +36,7 @@ export default function Home() {
       const filteredResults = vocabularies.filter((vocab) =>
         vocab.title.toLowerCase().includes(keyword) ||
         (vocab.terms || []).some((term) =>
-          typeof term === 'string' &&
-          term.toLowerCase().includes(keyword)
+          typeof term === 'string' && term.toLowerCase().includes(keyword)
         )
       );
       setFiltered(filteredResults);
@@ -76,15 +75,15 @@ export default function Home() {
     saveAs(blob, 'vocabularies.csv');
   };
 
-  if (loading) return <p className="text-center mt-10">Loading vocabularies...</p>;
+  if (loading) return <p className="loading-message">Loading vocabularies...</p>;
 
   return (
     <PageWrapper>
-      <div className="max-w-3xl mx-auto p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">Vocabulary List</h1>
+      <div className="home-container">
+        <div className="home-header">
+          <h1 className="vocab-title">📘 Vocabulary List</h1>
           {isAdmin && (
-            <Link to="/add" className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+            <Link to="/add" className="add-btn">
               ➕ Add New Vocabulary
             </Link>
           )}
@@ -93,32 +92,22 @@ export default function Home() {
         <input
           type="text"
           placeholder="Search by title or term..."
-          className="w-full border px-3 py-2 rounded mb-4"
+          className="search-input"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        <div className="flex gap-3 mb-6">
-          <button
-            onClick={handleExportJSON}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            ⬇ Export JSON
-          </button>
-          <button
-            onClick={handleExportCSV}
-            className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700"
-          >
-            ⬇ Export CSV
-          </button>
+        <div className="export-buttons">
+          <button onClick={handleExportJSON}>⬇ Export JSON</button>
+          <button onClick={handleExportCSV}>⬇ Export CSV</button>
         </div>
 
         {filtered.length === 0 ? (
-          <p className="text-gray-600 text-center mt-10">No matching vocabularies found.</p>
+          <p className="no-vocab">No matching vocabularies found.</p>
         ) : (
           <>
             <VocabularyList vocabularies={filtered.slice(0, visibleCount)} highlightTerm={search} />
-            <div ref={loadMoreRef} className="h-1 mt-2" />
+            <div ref={loadMoreRef} className="load-more-trigger" />
           </>
         )}
       </div>
