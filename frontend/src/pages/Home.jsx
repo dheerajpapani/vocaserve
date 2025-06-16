@@ -105,14 +105,6 @@ export default function Home() {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        <div className="export-buttons">
-          <button onClick={handleExportJSON} className="json-btn">
-            ⬇ Export JSON
-          </button>
-          <button onClick={handleExportCSV} className="csv-btn">
-            ⬇ Export CSV
-          </button>
-        </div>
 
         {filtered.length === 0 ? (
           <p className="no-vocab">No matching vocabularies found.</p>
@@ -126,6 +118,16 @@ export default function Home() {
           </>
         )}
       </div>
+
+        <div className="export-buttons">
+          <button onClick={handleExportJSON} className="json-btn">
+            ⬇ Export JSON
+          </button>
+          <button onClick={handleExportCSV} className="csv-btn">
+            ⬇ Export CSV
+          </button>
+        </div>
+
     </PageWrapper>
   );
 }
